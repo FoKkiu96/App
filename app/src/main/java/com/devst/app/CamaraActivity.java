@@ -17,25 +17,6 @@ import androidx.core.content.ContextCompat;
 public class CamaraActivity extends AppCompatActivity {
 
     private ImageView imagenPrevia;
-    private Uri urlImagen;
-
-    // Launcher para permisos de cámara (puede quedarse por si quieres usar cámara más adelante)
-    private final ActivityResultLauncher<String> permisoCamaraLauncher =
-            registerForActivityResult(new ActivityResultContracts.RequestPermission(), granted -> {
-                if (granted) tomarFoto();
-                else Toast.makeText(this, "Permiso de cámara denegado", Toast.LENGTH_SHORT).show();
-            });
-
-    // Launcher para tomar foto (puede quedarse por si quieres usar cámara más adelante)
-    private final ActivityResultLauncher<Uri> takePictureLauncher =
-            registerForActivityResult(new ActivityResultContracts.TakePicture(), result -> {
-                if (result && urlImagen != null) {
-                    imagenPrevia.setImageURI(urlImagen);
-                    Toast.makeText(this, "Foto guardada", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "Captura cancelada", Toast.LENGTH_SHORT).show();
-                }
-            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,28 +26,23 @@ public class CamaraActivity extends AppCompatActivity {
         Button btnTomarFoto = findViewById(R.id.btnTomarFoto);
         imagenPrevia = findViewById(R.id.imgPreview);
 
-        // Nuevo comportamiento: abrir CamaraXActivity al presionar el botón
         btnTomarFoto.setOnClickListener(v -> {
             Intent intent = new Intent(CamaraActivity.this, CamaraXActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, 200); // requestCode = 200
         });
-
-        // Aquí podrías agregar el botón de seleccionar imagen si quieres mantenerlo funcional
     }
 
-    // Métodos anteriores de cámara (pueden mantenerse si luego quieres usarlos)
-    private void checkPermisoYTomar() {
-        boolean granted = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                == PackageManager.PERMISSION_GRANTED;
-        if (granted) {
-            tomarFoto();
-        } else {
-            permisoCamaraLauncher.launch(Manifest.permission.CAMERA);
+    // Recibir la foto desde CamaraXActivity
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 200 && resultCode == RESULT_OK) {
+            Uri imagenUri = data.getData();
+            if (imagenUri != null) {
+                imagenPrevia.setImageURI(imagenUri);
+            }
         }
     }
 
-    private void tomarFoto() {
-        // Método para tomar foto (queda por si quieres activarlo en otra parte)
-        // No se usará con la nueva lógica actual
-    }
 }
