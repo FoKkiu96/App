@@ -95,6 +95,8 @@ public class HomeActivity extends AppCompatActivity {
             intent.putExtra(android.provider.CalendarContract.EXTRA_EVENT_END_TIME, fin.getTimeInMillis());
             intent.putExtra(android.provider.CalendarContract.Events.DESCRIPTION, "Revisión del avance del proyecto.");
 
+            startActivity(intent);
+
 
         });
 
