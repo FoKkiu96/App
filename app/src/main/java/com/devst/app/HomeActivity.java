@@ -78,6 +78,30 @@ public class HomeActivity extends AppCompatActivity {
         Button btnCompartir = findViewById(R.id.btnCompartir);
         btnLinterna = findViewById(R.id.btnLinterna);
         Button btnCamara = findViewById(R.id.btnCamara);
+        Button btnEvento = findViewById(R.id.btnEvento);
+
+        btnEvento.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_INSERT);
+            intent.setData(android.provider.CalendarContract.Events.CONTENT_URI);
+
+            java.util.Calendar inicio = java.util.Calendar.getInstance();
+            inicio.set(2025, java.util.Calendar.OCTOBER, 20, 10, 0);
+            java.util.Calendar fin = java.util.Calendar.getInstance();
+            fin.set(2025, java.util.Calendar.OCTOBER, 20, 11, 0);
+
+            intent.putExtra(android.provider.CalendarContract.Events.TITLE, "Reunión de Proyecto");
+            intent.putExtra(android.provider.CalendarContract.Events.EVENT_LOCATION, "Oficina Central");
+            intent.putExtra(android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME, inicio.getTimeInMillis());
+            intent.putExtra(android.provider.CalendarContract.EXTRA_EVENT_END_TIME, fin.getTimeInMillis());
+            intent.putExtra(android.provider.CalendarContract.Events.DESCRIPTION, "Revisión del avance del proyecto.");
+
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, "No hay app de calendario disponible", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         // Recibir dato del Login
         emailUsuario = getIntent().getStringExtra("email_usuario");
@@ -218,6 +242,10 @@ public class HomeActivity extends AppCompatActivity {
             finish(); // Cierra HomeActivity
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
+
 }
+
+
