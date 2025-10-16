@@ -95,11 +95,7 @@ public class HomeActivity extends AppCompatActivity {
             intent.putExtra(android.provider.CalendarContract.EXTRA_EVENT_END_TIME, fin.getTimeInMillis());
             intent.putExtra(android.provider.CalendarContract.Events.DESCRIPTION, "Revisión del avance del proyecto.");
 
-            if (intent.resolveActivity(getPackageManager()) != null) {
-                startActivity(intent);
-            } else {
-                Toast.makeText(this, "No hay app de calendario disponible", Toast.LENGTH_SHORT).show();
-            }
+
         });
 
 
