@@ -1,4 +1,6 @@
 package com.devst.app;
 
-public class EventoActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class EventoActivity  extends AppCompatActivity {
 }
