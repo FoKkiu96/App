@@ -37,7 +37,7 @@ public class EventoActivity extends AppCompatActivity {
         unregisterReceiver(receptorInterno);
     }
 
-    // --- Tu método para agregar el evento al calendario ---
+
     public void agregarEvento(View view) {
         Intent intent = new Intent(Intent.ACTION_INSERT);
         intent.setData(CalendarContract.Events.CONTENT_URI);
@@ -56,6 +56,19 @@ public class EventoActivity extends AppCompatActivity {
 
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
+        } // Verificamos si hay app de calendario disponible
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        } else {
+            // Intent alternativo
+            Intent abrirCalendario = new Intent(Intent.ACTION_MAIN);
+            abrirCalendario.addCategory(Intent.CATEGORY_APP_CALENDAR);
+
+            if (abrirCalendario.resolveActivity(getPackageManager()) != null) {
+                startActivity(abrirCalendario);
+            } else {
+                Toast.makeText(this, "No hay ninguna app de calendario instalada", Toast.LENGTH_SHORT).show();
+            }
         }
     }
-}
+    }
