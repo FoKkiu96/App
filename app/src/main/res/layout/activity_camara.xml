@@ -12,10 +12,22 @@
         android:layout_width="match_parent" android:layout_height="match_parent">
 
         <Button
+            android:id="@+id/btnGaleria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Seleccionar desde la galeria" />
+
+        <Button
             android:id="@+id/btnTomarFoto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tomar foto" />
+            android:text="Abrir camara trasera" />
+
+        <Button
+            android:id="@+id/btnTomarFotoFront"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Abrir camara frontal" />
 
         <ImageView
             android:id="@+id/imgPreview"
