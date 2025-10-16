@@ -59,6 +59,7 @@
                     android:textColor="@color/text_main"/>
 
                 <!-- Botones -->
+
                 <Button
                     android:id="@+id/btnIrPerfil"
                     android:layout_width="match_parent"
@@ -101,8 +102,19 @@
                     android:text="Abrir Cámara"
                     android:layout_marginTop="12dp"/>
 
+                <Button
+                    android:id="@+id/btnEvento"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Agregar evento al calendario"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="12dp"/>
+
+
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
