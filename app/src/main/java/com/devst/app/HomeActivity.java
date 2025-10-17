@@ -39,16 +39,6 @@ public class HomeActivity extends AppCompatActivity {
     private String camaraID = null;
     private boolean luz = false;
 
-    // Activity Result (para recibir datos de PerfilActivity)
-    private final ActivityResultLauncher<Intent> editarPerfilLauncher =
-            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                    String nombre = result.getData().getStringExtra("nombre_editado");
-                    if (nombre != null) {
-                        tvBienvenida.setText("Hola, " + nombre);
-                    }
-                }
-            });
 
     // Launcher para pedir permiso de cámara en tiempo de ejecución
     private final ActivityResultLauncher<String> permisoCamaraLauncher =
@@ -72,7 +62,6 @@ public class HomeActivity extends AppCompatActivity {
 
         //Referencias
         tvBienvenida = findViewById(R.id.tvBienvenida);
-        Button btnIrPerfil = findViewById(R.id.btnIrPerfil);
         Button btnAbrirWeb = findViewById(R.id.btnAbrirWeb);
         Button btnEnviarCorreo = findViewById(R.id.btnEnviarCorreo);
         Button btnCompartir = findViewById(R.id.btnCompartir);
@@ -106,16 +95,10 @@ public class HomeActivity extends AppCompatActivity {
         if (emailUsuario == null) emailUsuario = "";
         tvBienvenida.setText("Bienvenido: " + emailUsuario);
 
-        // Evento: Intent explícito → ProfileActivity (esperando resultado)
-        btnIrPerfil.setOnClickListener(v -> {
-            Intent i = new Intent(HomeActivity.this, PerfilActivity.class);
-            i.putExtra("email_usuario", emailUsuario);
-            editarPerfilLauncher.launch(i);
-        });
 
         // Evento: Intent implícito → abrir web
         btnAbrirWeb.setOnClickListener(v -> {
-            Uri uri = Uri.parse("https://www.santotomas.cl");
+            Uri uri = Uri.parse("https://github.com/FoKkiu96/App");
             Intent viewWeb = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(viewWeb);
         });
@@ -206,16 +189,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-
-
-
-
-
     // ===== Menú en HomeActivity =====
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -223,26 +196,6 @@ public class HomeActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_perfil) {
-            // Ir al perfil (explícito)
-            Intent i = new Intent(this, PerfilActivity.class);
-            i.putExtra("email_usuario", emailUsuario);
-            editarPerfilLauncher.launch(i);
-            return true;
-        } else if (id == R.id.action_web) {
-            // Abrir web (implícito)
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://developer.android.com")));
-            return true;
-        } else if (id == R.id.action_salir) {
-            finish(); // Cierra HomeActivity
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
 }
 

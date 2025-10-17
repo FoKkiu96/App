@@ -61,13 +61,6 @@
                 <!-- Botones -->
 
                 <Button
-                    android:id="@+id/btnIrPerfil"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="Ir a Perfil (resultado)"/>
-
-                <Button
                     android:id="@+id/btnAbrirWeb"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
